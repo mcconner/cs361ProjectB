@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>​
+<head>
+<script src="https://cdn.traitify.com/lib/v1.js"></script>
+<script>
+  Traitify.setPublicKey("oghvbconu655a7j7t4d5musj97"); // Example Public Key
+  Traitify.setHost("api-sandbox.traitify.com"); // Example host url (Defaults to api.traitify.com)
+  Traitify.setVersion("v1"); // Example Version
+  var assessmentId = "9e8d6b97-4461-48cd-998a-39b64788e195"; // Example Assessment id
+</script>
+
+<script>
+
+Traitify.getDecks("9e8d6b97-4461-48cd-998a-39b64788e195").then(function(data){
+  console.log(data)
+})
+
+Traitify.getSlides("9e8d6b97-4461-48cd-998a-39b64788e195").then(function(data){
+  console.log(data)
+})
+
+
+Traitify.addSlide("9e8d6b97-4461-48cd-998a-39b64788e195").then(function(data){
+  console.log(data)
+})
+
+Traitify.getPersonalityTraits("9e8d6b97-4461-48cd-998a-39b64788e195").then(function(data){
+  console.log(data)
+})
+
+
+Traitify.getPersonalityTypes(assessmentId).then(function(data){
+  console.log(data)
+})
+
+Traitify.getCareers(assessmentId, function(data){
+  console.log(data)
+})
+
+Traitify.get("/assessments/"+assessmentId+"/slides").then(function(data){
+  console.log(data)
+})
+
+
+
+
+
+
+
+</script>
+
+
+</head>
+<body>
+<div class="assessment"></div>
+</body>
+</html>
+
+
