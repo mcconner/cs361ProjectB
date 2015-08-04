@@ -66,16 +66,17 @@ function showCareers(id) {
     trHTML += '<tr><td colspan="2"><strong>Career Options<strong></td></tr>';
     console.log(data);
     for(var i=0; i<data.length; i++){
-      trHTML += '<tr><td align="center"><strong>' + data[i].career.title + '<strong><br><img src="'+ data[i].career.picture +'"></td>';
-      trHTML += '<td><i>Score:</i> ' + data[i].score + '<br><br><i>Description:</i> ' + data[i].career.description + '<br><br><i>College Major Choices:</i> ';
+      trHTML += '<tr><td align="center"><strong><id = "careertitle">' + data[i].career.title + '</id><strong><br><img src="'+ data[i].career.picture +'"></td>';
+      trHTML += '<td><id = "score">Score: ' + Math.round(data[i].score * 100) / 100 + '</id><br><br><id = "description">' + data[i].career.description + '</id><br><br><i>College Major Choices:</i> ';
 
       for(var j=0; j<data[i].career.majors.length; j++){
         trHTML += data[i].career.majors[j].title + ' ';
       }
-      trHTML += '<br><br><i>Personality Traits: </i>';
+      trHTML += '<br><br><id="traits"> Personality Traits: ';
       for(var k=0; k<data[i].career.personality_traits.length; k++){
-        trHTML += data[i].career.personality_traits[k].personality_trait.name + '. ';
+        trHTML += data[i].career.personality_traits[k].personality_trait.name + ', ';
       }
+      trHTML += '</id>';
 
       trHTML += '<br><br><i>Salary Mean:</i> $' + numberWithCommas(data[i].career.salary_projection.annual_salary_mean) +'';
 
