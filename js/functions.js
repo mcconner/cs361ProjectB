@@ -12,7 +12,7 @@ $(document).ready(function() {
        success: function(data)
        {
           if (data === 'OK') {
-            window.location = 'dashboard.php';
+            window.location = 'main.php';
           }
           else {
             $('#r-alerts').html(data);
@@ -30,7 +30,7 @@ $(document).ready(function() {
        success: function(data)
        {
           if (data === 'OK') {
-            window.location = 'dashboard.php';
+            window.location = 'main.php';
           }
           else {
             $('#l-alerts').html(data);
