@@ -13,8 +13,8 @@ header('Content-Type: text/html');
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Pick for Success</title>
 	<!-- Bootstrap Core CSS -->
-	<link href="bootstrap.min.css" rel="stylesheet">
-	<link href="bootstrap.css" rel="stylesheet">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap.css" rel="stylesheet">
 	<!-- Custom CSS -->
 	<style>
 		body {
