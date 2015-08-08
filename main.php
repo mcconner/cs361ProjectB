@@ -70,6 +70,8 @@ if(empty($_SESSION['loggedIn'])) {
                     <li>
                         <a href="#">Contact</a>
                     </li>
+                </ul>
+                <ul class="nav navbar-nav pull-right">
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user"></i> <?php echo $_SESSION['User'];?> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
