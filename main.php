@@ -148,12 +148,14 @@ header("Access-Control-Allow-Origin: *");
         </div>
         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
             <div class="panel-body" id="location">
-                This section will allow you to enter a location that you would like to live in, and it will be taken into consideration
-                in the career calculation.
+                This section will allow you to make comparisons between locations that you would potentially like to live in. Enter the locations that you would like to live in, 
+                and it will be taken into consideration in the career calculation.
 
                 <form onsubmit="return getLocationRequirements()">
                     <table class="table" width="60%">
-                    <tr><td align="right"><label>Desired location (city):</label></td><td><input type="text" placeholder="Location" id="userLocation"></input></td></tr>
+                    <tr><td align="right"><label>Location #1 (city):</label></td><td><input type="text" placeholder="Location 1" id="userLocation1"></input></td></tr>
+                    <tr><td align="right"><label>Location #2 (city):</label></td><td><input type="text" placeholder="Location 2" id="userLocation2"></input></td></tr>
+                    <tr><td align="right"><label>Location #3 (city):</label></td><td><input type="text" placeholder="Location 3" id="userLocation3"></input></td></tr>
                     <tr><td colspan="2" align="center"><input type="submit" value="Submit"></td></tr>
                 </table>
                 </form>
@@ -183,37 +185,91 @@ header("Access-Control-Allow-Origin: *");
 
 <script>
 
-    function getLocationRequirements() {
-        var userLocation = $('#userLocation').val();
-        console.log(userLocation);
+    /*function getLocationRequirements() {
+        var userLocation1 = $('#userLocation1').val();
+        var userLocation2 = $('#userLocation2').val();
+        var userLocation3 = $('#userLocation3').val();
+        console.log(userLocation1 + ' ' + userLocation2 + ' ' + userLocation3);
         alert("In function");
        $.ajax({
-        headers: { "Accept": "application/json"},
+            headers: { "Accept": "application/json"},
             type: 'GET',
             dataType: 'json',
-            //url: 'fiscal_data.php?location=San+Francisco',
-            url: 'fiscal_data.php?location=' + userLocation,
+            url: 'fiscal_data.php?location=' + userLocation1,
             success: function(data, textStatus, request){
                 console.log(data);
-                //console.log(data.name);
-                //console.log(data.prices[22].item_name);
                 var trHTML = '<table class="table">';
-                trHTML += '<tr><td>CPI and rent index</td><td>'+ data.cpi_and_rent_index +'</td></tr>'; 
-                trHTML += '<tr><td>Restaurant index</td><td>'+ data.restaurant_price_index +'</td></tr>'; 
-                trHTML += '<tr><td>Quality of life index</td><td>'+ data.quality_of_life_index +'</td></tr>'; 
-                trHTML += '<tr><td>Safety index</td><td>'+ data.safety_index +'</td></tr>'; 
-                //trHTML += '<tr><td>You selected:</td><td>'+ data.name +'</td></tr>';
-                //trHTML += '<tr><td colspan="2"><strong> Average Cost Information: </strong></td></tr>';
-                //for (var i=0; i<data.prices.length; i++){
-                //    trHTML += '<tr><td>'+data.prices[i].item_name+'</td><td>'+ data.prices[i].average_price +'</td></tr>';  
-                //}
+                trHTML += '<tr><td colspan="2">'+ data.name +'</td></tr>';
+                trHTML += '<tr><td>CPI and rent index</td><td>'+ (data.cpi_and_rent_index.toFixed(2)) +'</td></tr>'; 
+                trHTML += '<tr><td>Restaurant index</td><td>'+ (data.restaurant_price_index).toFixed(2) +'</td></tr>'; 
+                trHTML += '<tr><td>Quality of life index</td><td>'+ (data.quality_of_life_index).toFixed(2) +'</td></tr>'; 
+                trHTML += '<tr><td>Safety index</td><td>'+ (data.safety_index).toFixed(2) +'</td></tr>'; 
                 trHTML += '</table>';
                 var locationInfo = document.getElementById("locationData");
                 locationInfo.innerHTML = trHTML;
             }
         }); 
 	return false;
-    }
+    }*/
+
+
+
+
+
+
+function getLocationRequirements() {
+    var userLocation1 = $('#userLocation1').val();
+    var userLocation2 = $('#userLocation2').val();
+    var userLocation3 = $('#userLocation3').val();
+    console.log(userLocation1 + ' ' + userLocation2 + ' ' + userLocation3);
+    $.when(
+        $.ajax({
+            headers: { "Accept": "application/json"},
+            type: 'GET',
+            dataType: 'json',
+            //url: 'fiscal_data.php?location=San+Francisco',
+            url: 'fiscal_data.php?location=' + userLocation1
+        }),
+        $.ajax({
+            headers: { "Accept": "application/json"},
+            type: 'GET',
+            dataType: 'json',
+            //url: 'fiscal_data.php?location=San+Francisco',
+            url: 'fiscal_data.php?location=' + userLocation2
+        }),
+        $.ajax({
+            headers: { "Accept": "application/json"},
+            type: 'GET',
+            dataType: 'json',
+            //url: 'fiscal_data.php?location=San+Francisco',
+            url: 'fiscal_data.php?location=' + userLocation3
+        })
+    ).done(function(L1, L2, L3 ) {
+            console.log(L1[0].cpi_and_rent_index);
+            console.log(L2[0].cpi_and_rent_index); 
+            console.log(L3[0].cpi_and_rent_index); 
+
+
+            var trHTML = '<table class="table">';
+                trHTML += '<tr><td></td><td>'+ L1[0].name +'</td><td>'+ L2[0].name+'</td><td>'+ L3[0].name +'</td></tr>';
+                trHTML += '<tr><td>CPI and rent index</td><td>'+ (L1[0].cpi_and_rent_index.toFixed(2)) +'</td><td>'+ (L2[0].cpi_and_rent_index.toFixed(2)) +'</td><td>'+ (L3[0].cpi_and_rent_index.toFixed(2)) +'</td></tr>'; 
+                trHTML += '<tr><td>Restaurant index</td><td>'+ (L1[0].restaurant_price_index).toFixed(2) +'</td><td>'+ (L2[0].restaurant_price_index).toFixed(2) +'</td><td>'+ (L3[0].restaurant_price_index).toFixed(2) +'</td></tr>'; 
+                trHTML += '<tr><td>Quality of life index</td><td>'+ (L1[0].quality_of_life_index).toFixed(2) +'</td><td>'+ (L2[0].quality_of_life_index).toFixed(2) +'</td><td>'+ (L3[0].quality_of_life_index).toFixed(2) +'</td></tr>'; 
+                trHTML += '<tr><td>Safety index</td><td>'+ (L1[0].safety_index).toFixed(2) +'</td><td>'+ (L2[0].safety_index).toFixed(2) +'</td><td>'+ (L3[0].safety_index).toFixed(2) +'</td></tr>'; 
+                trHTML += '</table>';
+                var locationInfo = document.getElementById("locationData");
+                locationInfo.innerHTML = trHTML;    
+    });
+}
+
+
+
+
+
+
+
+
+
 
     
     
