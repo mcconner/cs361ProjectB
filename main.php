@@ -72,7 +72,15 @@ header("Access-Control-Allow-Origin: *");
     </nav>
 
 
-
+<div class="container">
+    <div class="col-xs-2"></div>
+    <div class="col-xs-8">
+    <h4>Welcome to Picking for Success! Complete the following four modules to the best of your ability and we will show you
+    careers and college majors that are the best fit for YOU!</h4>
+    </div>
+    <div class="col-xs-2"></div>
+</div>
+<br><br>
 <div class="panel-group center-block" id="accordion" role="tablist" aria-multiselectable="true" style="width: 70%;">
     <div class="panel panel-default" style="border: 2px solid #33A6CC; border-radius: 5px;">
         <div class="panel-heading" role="tab" id="headingOne">
@@ -116,9 +124,12 @@ header("Access-Control-Allow-Origin: *");
                 </div>-->
 
                 <form onsubmit="getFiscalRequirements()">
-                    <label>Enter your ideal location:</label><input type="text" placeholder="Location" id="Location"></input>
-                    <br>
-                    <input type="submit" value="Submit">
+                    <table class="table" width="60%">
+                    <tr><td colspan="2">Please enter the following information</td></tr>
+                    <tr><td align="right"><label>Expected retirement age:</label></td><td><input type="text" placeholder="Retirement Age" id="Location"></input></td></tr>
+                    <tr><td align="right"><label>Housing arrangement:</label></td><td><input type="text" placeholder="Home, apartment, etc." id="Housing"></input></td></tr>
+                    <tr><td colspan="2" align="center"><input type="submit" value="Submit"></td></tr>
+                </table>
                 </form>
 
                 <div id="fiscal"></div>
@@ -137,7 +148,8 @@ header("Access-Control-Allow-Origin: *");
         </div>
         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
             <div class="panel-body" id="location">
-            
+                This section will allow you to enter a location that you would like to live in, and it will be taken into consideration
+                in the career calculation.
             </div>
         </div>
     </div>
@@ -151,7 +163,8 @@ header("Access-Control-Allow-Origin: *");
         </div>
         <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
             <div class="panel-body" id="transcriptAnalysis">
-                
+                This section will take your transcript information into account to determine possible scholarships you 
+                may qualify for, your likelihood of admission into specific colleges, and aptitude.
             </div>
         </div>
     </div>
@@ -196,6 +209,7 @@ header("Access-Control-Allow-Origin: *");
     }*/
 
     function getFiscalRequirements() {
+        alert("In function");
        $.ajax({
         headers: { "Accept": "application/json"},
             type: 'GET',
