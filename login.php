@@ -1,4 +1,6 @@
 <?php
+
+session_save_path('/nfs/stak/students/p/pattejon/php_sessions');
 session_destroy();
 session_start();
 
@@ -11,7 +13,7 @@ $auth = new Authenticator( $dbhost, $dbuser, $dbpass, $dbname );
 $auth->Authenticate($_POST["useremail"], $_POST["userpassword"]);
 
 if($auth->isAuthenticated()){
-	$_SESSION['loggedIn'] = $auth;
+//	$_SESSION['loggedIn'] = $auth;
 	$_SESSION['User'] = $auth->getUser();
 }
 

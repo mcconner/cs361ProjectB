@@ -4,15 +4,15 @@ ini_set('display_errors', 1);
 header('Content-Type: text/html');
 header("Access-Control-Allow-Origin: *");
 //Resume Session to check for loggedIn variable
+
+session_save_path('/nfs/stak/students/p/pattejon/php_sessions');
 session_start();
 
-if(empty($_SESSION['loggedIn'])) {
+if(!isset($_SESSION['User'])) {
   //Kick user out
-  header("Location: index.html");
+  header("Location: index.php");
 } 
 
-// session_save_path('/nfs/stak/students/l/liangt/php_sessions');
-// session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +38,7 @@ if(empty($_SESSION['loggedIn'])) {
 	    </style>
 	<title>Personality Test</title>
   <script src="https://cdn.traitify.com/js/widgets/v1.js"></script>
-  <script src="main.js"></script>
+  <script src="js/main.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
 <body>
@@ -120,6 +120,32 @@ if(empty($_SESSION['loggedIn'])) {
     <div class="panel panel-default" style="border: 2px solid #33A6CC; border-radius: 5px;">
         <div class="panel-heading" role="tab" id="headingTwo">
             <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" href="#collapseThree" aria-expanded="true" aria-controls="collapseTwo">
+            <strong>Location ></strong>
+            </a>
+            </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+            <div class="panel-body" id="location">
+                This section will allow you to make comparisons between locations that you would potentially like to live in. Enter the locations that you would like to live in, 
+                and it will be taken into consideration in the career calculation.
+
+                <form onsubmit="return getLocationRequirements()">
+                    <table class="table" width="60%">
+                    <tr><td align="right"><label>Location #1 (city):</label></td><td><input type="text" placeholder="Location 1" id="userLocation1"></input></td></tr>
+                    <tr><td align="right"><label>Location #2 (city):</label></td><td><input type="text" placeholder="Location 2" id="userLocation2"></input></td></tr>
+                    <tr><td align="right"><label>Location #3 (city):</label></td><td><input type="text" placeholder="Location 3" id="userLocation3"></input></td></tr>
+                    <tr><td colspan="2" align="center"><input type="submit" value="Submit"></td></tr>
+                </table>
+                </form>
+
+                <div id="locationData"></div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default" style="border: 2px solid #33A6CC; border-radius: 5px;">
+        <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
             <a class="collapsed" role="button" data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <strong>Fiscal Requirements ></strong>
             </a>
@@ -154,32 +180,7 @@ if(empty($_SESSION['loggedIn'])) {
         </div>
 
     </div>
-    <div class="panel panel-default" style="border: 2px solid #33A6CC; border-radius: 5px;">
-        <div class="panel-heading" role="tab" id="headingTwo">
-            <h4 class="panel-title">
-            <a class="collapsed" role="button" data-toggle="collapse" href="#collapseThree" aria-expanded="true" aria-controls="collapseTwo">
-            <strong>Location ></strong>
-            </a>
-            </h4>
-        </div>
-        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-            <div class="panel-body" id="location">
-                This section will allow you to make comparisons between locations that you would potentially like to live in. Enter the locations that you would like to live in, 
-                and it will be taken into consideration in the career calculation.
 
-                <form onsubmit="return getLocationRequirements()">
-                    <table class="table" width="60%">
-                    <tr><td align="right"><label>Location #1 (city):</label></td><td><input type="text" placeholder="Location 1" id="userLocation1"></input></td></tr>
-                    <tr><td align="right"><label>Location #2 (city):</label></td><td><input type="text" placeholder="Location 2" id="userLocation2"></input></td></tr>
-                    <tr><td align="right"><label>Location #3 (city):</label></td><td><input type="text" placeholder="Location 3" id="userLocation3"></input></td></tr>
-                    <tr><td colspan="2" align="center"><input type="submit" value="Submit"></td></tr>
-                </table>
-                </form>
-
-                <div id="locationData"></div>
-            </div>
-        </div>
-    </div>
     <div class="panel panel-default" style="border: 2px solid #33A6CC; border-radius: 5px;">
         <div class="panel-heading" role="tab" id="headingTwo">
             <h4 class="panel-title">
@@ -199,132 +200,7 @@ if(empty($_SESSION['loggedIn'])) {
 
 
 
-<script>
-
-    function getLocationRequirements() {
-        var userLocation1 = $('#userLocation1').val();
-        var userLocation2 = $('#userLocation2').val();
-        var userLocation3 = $('#userLocation3').val();
-        console.log(userLocation1 + ' ' + userLocation2 + ' ' + userLocation3);
-        //alert("In function");
-       $.ajax({
-            headers: { "Accept": "application/json"},
-            type: 'GET',
-            dataType: 'json',
-            url: 'fiscal_data.php?location=' + userLocation1,
-            success: function(data, textStatus, request){
-                
-                $.ajax({
-            headers: { "Accept": "application/json"},
-            type: 'GET',
-            dataType: 'json',
-            url: 'fiscal_data.php?location=' + userLocation2,
-            success: function(data2, textStatus, request){
-
-                console.log(data2);
-
-                $.ajax({
-                    headers: { "Accept": "application/json"},
-                    type: 'GET',
-                    dataType: 'json',
-                    url: 'fiscal_data.php?location=' + userLocation3,
-                    success: function(data3, textStatus, request){
-
-                        console.log(data3);
-
-                        var trHTML = '<table class="table">';
-                        trHTML += '<tr><td></td><td>'+ data.name +'</td><td>'+ data2.name+'</td><td>'+ data3.name +'</td></tr>';
-                        trHTML += '<tr><td>CPI and rent index</td><td>'+ (data.cpi_and_rent_index.toFixed(2)) +'</td><td>'+ (data2.cpi_and_rent_index.toFixed(2)) +'</td><td>'+ (data3.cpi_and_rent_index.toFixed(2)) +'</td></tr>'; 
-                        trHTML += '<tr><td>Restaurant index</td><td>'+ (data.restaurant_price_index).toFixed(2) +'</td><td>'+ (data2.restaurant_price_index).toFixed(2) +'</td><td>'+ (data3.restaurant_price_index).toFixed(2) +'</td></tr>'; 
-                        trHTML += '<tr><td>Quality of life index</td><td>'+ (data.quality_of_life_index).toFixed(2) +'</td><td>'+ (data2.quality_of_life_index).toFixed(2) +'</td><td>'+ (data3.quality_of_life_index).toFixed(2) +'</td></tr>'; 
-                        trHTML += '<tr><td>Safety index</td><td>'+ (data.safety_index).toFixed(2) +'</td><td>'+ (data2.safety_index).toFixed(2) +'</td><td>'+ (data3.safety_index).toFixed(2) +'</td></tr>'; 
-                        trHTML += '</table>';
-                        var locationInfo = document.getElementById("locationData");
-                        locationInfo.innerHTML = trHTML; 
-                    }
-            }); 
-
-
-            }
-        }); 
-                /*var trHTML = '<table class="table">';
-                trHTML += '<tr><td colspan="2">'+ data.name +'</td></tr>';
-                trHTML += '<tr><td>CPI and rent index</td><td>'+ (data.cpi_and_rent_index.toFixed(2)) +'</td></tr>'; 
-                trHTML += '<tr><td>Restaurant index</td><td>'+ (data.restaurant_price_index).toFixed(2) +'</td></tr>'; 
-                trHTML += '<tr><td>Quality of life index</td><td>'+ (data.quality_of_life_index).toFixed(2) +'</td></tr>'; 
-                trHTML += '<tr><td>Safety index</td><td>'+ (data.safety_index).toFixed(2) +'</td></tr>'; 
-                trHTML += '</table>';
-                var locationInfo = document.getElementById("locationData");
-                locationInfo.innerHTML = trHTML;*/
-            }
-        }); 
-	return false;
-    }
-
-
-
-
-
-
-/*function getLocationRequirements() {
-    var userLocation1 = $('#userLocation1').val();
-    var userLocation2 = $('#userLocation2').val();
-    var userLocation3 = $('#userLocation3').val();
-    console.log(userLocation1 + ' ' + userLocation2 + ' ' + userLocation3);
-    alert("in function");
-    $.when(
-        $.ajax({
-            headers: { "Accept": "application/json"},
-            type: 'GET',
-            dataType: 'json',
-            //url: 'fiscal_data.php?location=San+Francisco',
-            url: 'fiscal_data.php?location=' + userLocation1
-        }),
-        $.ajax({
-            headers: { "Accept": "application/json"},
-            type: 'GET',
-            dataType: 'json',
-            //url: 'fiscal_data.php?location=San+Francisco',
-            url: 'fiscal_data.php?location=' + userLocation2
-        }),
-        $.ajax({
-            headers: { "Accept": "application/json"},
-            type: 'GET',
-            dataType: 'json',
-            //url: 'fiscal_data.php?location=San+Francisco',
-            url: 'fiscal_data.php?location=' + userLocation3
-        })
-    ).done(function(L1, L2, L3 ) {
-            console.log(L1[0].cpi_and_rent_index);
-            console.log(L2[0].cpi_and_rent_index); 
-            console.log(L3[0].cpi_and_rent_index); 
-
-
-            var trHTML = '<table class="table">';
-                trHTML += '<tr><td></td><td>'+ L1[0].name +'</td><td>'+ L2[0].name+'</td><td>'+ L3[0].name +'</td></tr>';
-                trHTML += '<tr><td>CPI and rent index</td><td>'+ (L1[0].cpi_and_rent_index.toFixed(2)) +'</td><td>'+ (L2[0].cpi_and_rent_index.toFixed(2)) +'</td><td>'+ (L3[0].cpi_and_rent_index.toFixed(2)) +'</td></tr>'; 
-                trHTML += '<tr><td>Restaurant index</td><td>'+ (L1[0].restaurant_price_index).toFixed(2) +'</td><td>'+ (L2[0].restaurant_price_index).toFixed(2) +'</td><td>'+ (L3[0].restaurant_price_index).toFixed(2) +'</td></tr>'; 
-                trHTML += '<tr><td>Quality of life index</td><td>'+ (L1[0].quality_of_life_index).toFixed(2) +'</td><td>'+ (L2[0].quality_of_life_index).toFixed(2) +'</td><td>'+ (L3[0].quality_of_life_index).toFixed(2) +'</td></tr>'; 
-                trHTML += '<tr><td>Safety index</td><td>'+ (L1[0].safety_index).toFixed(2) +'</td><td>'+ (L2[0].safety_index).toFixed(2) +'</td><td>'+ (L3[0].safety_index).toFixed(2) +'</td></tr>'; 
-                trHTML += '</table>';
-                var locationInfo = document.getElementById("locationData");
-                locationInfo.innerHTML = trHTML;    
-    });
-}*/
-
-
-
-
-
-
-
-
-
-
-    
-    
-
-</script>
+<script src="js/location.js"></script>
 
 </body>
 </html>
