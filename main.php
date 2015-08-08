@@ -16,9 +16,13 @@ header("Access-Control-Allow-Origin: *");
 	<!-- Bootstrap Core CSS -->
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.js"></script>
+    <script src="js/functions.js"></script>
 	<!-- Custom CSS -->
 	<style>
 		body {
@@ -79,7 +83,7 @@ header("Access-Control-Allow-Origin: *");
             </h4>
         </div>
         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-            <div class="panel-body table-responsive">
+            <div class="panel-body">
                 <p>This section will assess your personality traits and attributes to give you a list of careers that are a 
                     good fit for you.</p>
                 <div id="assessmentJSON"></div>
@@ -97,7 +101,7 @@ header("Access-Control-Allow-Origin: *");
             </a>
             </h4>
         </div>
-        <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
             <div class="panel-body" id="fiscalRequirements">
                 <p>This section will help you to figure out the fiscal requirements that you will need to follow in order to have
                 the lifestyle you desire.</p> 
@@ -126,12 +130,12 @@ header("Access-Control-Allow-Origin: *");
     <div class="panel panel-default" style="border: 2px solid #33A6CC; border-radius: 5px;">
         <div class="panel-heading" role="tab" id="headingTwo">
             <h4 class="panel-title">
-            <a class="collapsed" role="button" data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <a class="collapsed" role="button" data-toggle="collapse" href="#collapseThree" aria-expanded="true" aria-controls="collapseTwo">
             <strong>Location ></strong>
             </a>
             </h4>
         </div>
-        <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
             <div class="panel-body" id="location">
             
             </div>
@@ -140,12 +144,12 @@ header("Access-Control-Allow-Origin: *");
     <div class="panel panel-default" style="border: 2px solid #33A6CC; border-radius: 5px;">
         <div class="panel-heading" role="tab" id="headingTwo">
             <h4 class="panel-title">
-            <a class="collapsed" role="button" data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <a class="collapsed" role="button" data-toggle="collapse" href="#collapseFour" aria-expanded="true" aria-controls="collapseTwo">
             <strong>Transcript Analysis ></strong>
             </a>
             </h4>
         </div>
-        <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
             <div class="panel-body" id="transcriptAnalysis">
                 
             </div>
