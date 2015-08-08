@@ -195,15 +195,18 @@ header("Access-Control-Allow-Origin: *");
             url: 'fiscal_data.php?location=' + userLocation,
             success: function(data, textStatus, request){
                 console.log(data);
-                console.log(data.name);
-                console.log(data.prices[22].item_name);
+                //console.log(data.name);
+                //console.log(data.prices[22].item_name);
                 var trHTML = '<table class="table">';
-                trHTML += '<tr><td>You selected:</td><td>'+ data.name +'</td></tr>';
-                trHTML += '<tr><td colspan="2"><strong> Average Cost Information: </strong></td></tr>';
-                for (var i=0; i<data.prices.length; i++){
-                    trHTML += '<tr><td>'+data.prices[i].item_name+'</td><td>'+ data.prices[i].average_price +'</td></tr>';  
-                }
-                // trHTML += '<tr><td>'+data.prices[43].item_name+'</td><td>'+ data.prices[43].average_price +'</td></tr>';
+                trHTML += '<tr><td>CPI and rent index</td><td>'+ data.cpi_and_rent_index +'</td></tr>'; 
+                trHTML += '<tr><td>Restaurant index</td><td>'+ data.restaurant_price_index +'</td></tr>'; 
+                trHTML += '<tr><td>Quality of life index</td><td>'+ data.quality_of_life_index +'</td></tr>'; 
+                trHTML += '<tr><td>Safety index</td><td>'+ data.safety_index +'</td></tr>'; 
+                //trHTML += '<tr><td>You selected:</td><td>'+ data.name +'</td></tr>';
+                //trHTML += '<tr><td colspan="2"><strong> Average Cost Information: </strong></td></tr>';
+                //for (var i=0; i<data.prices.length; i++){
+                //    trHTML += '<tr><td>'+data.prices[i].item_name+'</td><td>'+ data.prices[i].average_price +'</td></tr>';  
+                //}
                 trHTML += '</table>';
                 var locationInfo = document.getElementById("locationData");
                 locationInfo.innerHTML = trHTML;
