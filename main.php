@@ -122,10 +122,9 @@ header("Access-Control-Allow-Origin: *");
                 <div class="input-group input-group-sm">
                   <input type="submit" class="form-control" placeholder="Location" aria-describedby="sizing-addon3" onclick="getFiscalRequirements()">
                 </div>-->
-
+                <p><strong>Please enter the following information</strong></p>
                 <form onsubmit="getFiscalRequirements()">
                     <table class="table" width="60%">
-                    <tr><td colspan="2">Please enter the following information</td></tr>
                     <tr><td align="right"><label>Expected retirement age:</label></td><td><input type="text" placeholder="Retirement Age" id="Location"></input></td></tr>
                     <tr><td align="right"><label>Housing arrangement:</label></td><td><input type="text" placeholder="Home, apartment, etc." id="Housing"></input></td></tr>
                     <tr><td colspan="2" align="center"><input type="submit" value="Submit"></td></tr>
