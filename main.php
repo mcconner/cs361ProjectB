@@ -109,7 +109,8 @@ if(!isset($_SESSION['User'])) {
         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
             <div class="panel-body">
                 <p>This section will assess your personality traits and attributes to give you a list of careers that are a 
-                    good fit for you.</p>
+                    good fit for you. Please answer "Me" or "Not Me" to the following slides. It will take about 5 minutes
+                    to complete the assessment.</p>
                 <div id="assessmentJSON"></div>
 				  <div id="slideDeck"></div>
 				  <div id="careersJSON"></div>​
@@ -155,6 +156,7 @@ if(!isset($_SESSION['User'])) {
             <div class="panel-body" id="fiscalRequirements">
                 <p>This section will help you to figure out the fiscal requirements that you will need to follow in order to have
                 the lifestyle you desire.</p> 
+                <p>********DISCLAIMER: This section currently has no functionality. *********
 
 
                 <!--<div class="input-group input-group-sm">
