@@ -150,6 +150,15 @@ header("Access-Control-Allow-Origin: *");
             <div class="panel-body" id="location">
                 This section will allow you to enter a location that you would like to live in, and it will be taken into consideration
                 in the career calculation.
+
+                <form onsubmit="return getLocationRequirements()">
+                    <table class="table" width="60%">
+                    <tr><td align="right"><label>Desired location (city):</label></td><td><input type="text" placeholder="Location" id="userLocation"></input></td></tr>
+                    <tr><td colspan="2" align="center"><input type="submit" value="Submit"></td></tr>
+                </table>
+                </form>
+
+                <div id="locationData"></div>
             </div>
         </div>
     </div>
@@ -174,29 +183,22 @@ header("Access-Control-Allow-Origin: *");
 
 <script>
 
-//function getFiscalRequirements() {
-//    alert("Form submitted");
-//    ajaxCall();
-    //make ajax call
-    
-    //$.get("http://www.numbeo.com/api/city_prices?api_key=vr5x2c8nzqofyv&query=San+Francisco").done(function (data) {
-     //   console.log(data);
-    //});
-    
-
-//    trHTML = '<p>Fiscal data</p>';
-//    var fiscalData = document.getElementById("fiscal");
-//    fiscalData.innerHTML = trHTML;
-//}
-
-    function getFiscalRequirements() {
+    function getLocationRequirements() {
+        var userLocation = $('#userLocation').val();
+        console.log(userLocation);
         alert("In function");
        $.ajax({
         headers: { "Accept": "application/json"},
             type: 'GET',
-            url: 'fiscal_data.php?location=San+Francisco',
+            dataType: 'json',
+            //url: 'fiscal_data.php?location=San+Francisco',
+            url: 'fiscal_data.php?location=' + userLocation,
             success: function(data, textStatus, request){
                 console.log(data);
+                console.log(data.name);
+                trHTML = '<p>You selected: '+ data.name +'</p>';
+                var locationInfo = document.getElementById("locationData");
+                locationInfo.innerHTML = trHTML;
             }
         }); 
 	return false;
