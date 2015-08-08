@@ -123,7 +123,8 @@ header("Access-Control-Allow-Origin: *");
                   <input type="submit" class="form-control" placeholder="Location" aria-describedby="sizing-addon3" onclick="getFiscalRequirements()">
                 </div>-->
                 <p><strong>Please enter the following information</strong></p>
-                <form onsubmit="getFiscalRequirements()">
+
+                <form onsubmit="return getFiscalRequirements()">
                     <table class="table" width="60%">
                     <tr><td align="right"><label>Expected retirement age:</label></td><td><input type="text" placeholder="Retirement Age" id="Location"></input></td></tr>
                     <tr><td align="right"><label>Housing arrangement:</label></td><td><input type="text" placeholder="Home, apartment, etc." id="Housing"></input></td></tr>
@@ -188,40 +189,19 @@ header("Access-Control-Allow-Origin: *");
 //    fiscalData.innerHTML = trHTML;
 //}
 
-
-/*function getFiscalRequirements() {
-    alert("In function");
-    $.ajax({
-        url: 'http://www.numbeo.com/api/city_prices?api_key=vr5x2c8nzqofyv&query=San+Francisco',
-        type: 'GET',
-        dataType: 'json',
-        headers: 'Access-Control-Allow-Origin: *',
-        success: function(data){
-            alert("Success!");
-            console.log(data);
-        },
-        error: function (){
-            alert("Error");
-        }
-
-    });
-    }*/
-
     function getFiscalRequirements() {
         alert("In function");
        $.ajax({
         headers: { "Accept": "application/json"},
             type: 'GET',
-            url: 'http://www.numbeo.com/api/city_prices?api_key=vr5x2c8nzqofyv&query=San+Francisco',
-            crossDomain: true,
-            beforeSend: function(xhr){
-                xhr.withCredentials = true;
-          },
+            url: 'fiscal_data.php?location=San+Francisco',
             success: function(data, textStatus, request){
                 console.log(data);
             }
         }); 
+	return false;
     }
+
     
     
 
