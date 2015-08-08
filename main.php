@@ -196,7 +196,15 @@ header("Access-Control-Allow-Origin: *");
             success: function(data, textStatus, request){
                 console.log(data);
                 console.log(data.name);
-                trHTML = '<p>You selected: '+ data.name +'</p>';
+                console.log(data.prices[22].item_name);
+                var trHTML = '<table class="table">';
+                trHTML += '<tr><td>You selected:</td><td>'+ data.name +'</td></tr>';
+                trHTML += '<tr><td colspan="2"><strong> Average Cost Information: </strong></td></tr>';
+                for (var i=0; i<data.prices.length; i++){
+                    trHTML += '<tr><td>'+data.prices[i].item_name+'</td><td>'+ data.prices[i].average_price +'</td></tr>';  
+                }
+                // trHTML += '<tr><td>'+data.prices[43].item_name+'</td><td>'+ data.prices[43].average_price +'</td></tr>';
+                trHTML += '</table>';
                 var locationInfo = document.getElementById("locationData");
                 locationInfo.innerHTML = trHTML;
             }
