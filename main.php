@@ -3,6 +3,14 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 header('Content-Type: text/html');
 header("Access-Control-Allow-Origin: *");
+//Resume Session to check for loggedIn variable
+session_start();
+
+if(empty($_SESSION['loggedIn'])) {
+  //Kick user out
+  header("Location: index.html");
+} 
+
 // session_save_path('/nfs/stak/students/l/liangt/php_sessions');
 // session_start();
 ?>
@@ -16,12 +24,10 @@ header("Access-Control-Allow-Origin: *");
 	<!-- Bootstrap Core CSS -->
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
-    <script src="js/bootstrap.min.js"></script>
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/functions.js"></script>
 	<!-- Custom CSS -->
 	<style>
@@ -63,6 +69,14 @@ header("Access-Control-Allow-Origin: *");
                     </li>
                     <li>
                         <a href="#">Contact</a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user"></i> <?php echo $_SESSION['User'];?> <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
